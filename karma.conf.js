@@ -9,7 +9,7 @@ module.exports = function(config) {
   config.set({
     frameworks: ["mocha", "sinon", "chai"],
 
-    browsers: ["Firefox"],
+    browsers: ["ChromeHeadless"],
 
     singleRun: CONTINUOUS_INTEGRATION,
 
@@ -22,21 +22,19 @@ module.exports = function(config) {
     reporters: ["dots", "coverage"],
 
     webpack: {
+      mode: "development",
       devtool: "inline-source-map",
       module: {
-        loaders: [
+        rules: [
           {
             test: /\.jsx?$/,
             exclude: /node_modules/,
-            loader: "babel",
-            query: {
-              presets: ["airbnb"]
+            use: {
+              loader: "babel-loader",
+              options: {
+                presets: ["@babel/preset-env", "@babel/preset-flow", "@babel/preset-react"]
+              }
             }
-          },
-          {
-            test: /\.jsx?$/,
-            include: path.resolve(__dirname, "src"),
-            loader: "isparta"
           }
         ]
       },
@@ -46,7 +44,7 @@ module.exports = function(config) {
         })
       ],
       resolve: {
-        extensions: ["", ".jsx", ".js"]
+        extensions: [".jsx", ".js"]
       },
       externals: {
         cheerio: "window",
@@ -64,7 +62,7 @@ module.exports = function(config) {
       ]
     },
 
-    webpackServer: {
+    webpackMiddleware: {
       noInfo: true
     }
   });

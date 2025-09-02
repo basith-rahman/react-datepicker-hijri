@@ -6,35 +6,24 @@ var modules = MODULES === 'false' || NODE_ENV === 'test' ? 'commonjs' : false;
 var config = {
   presets: [
     [
-      'env',
+      '@babel/preset-env',
       {
         loose: true,
         modules: modules,
         forceAllTransforms: NODE_ENV === 'production',
       },
     ],
-    'stage-0',
-    'react',
+    '@babel/preset-flow',
+    '@babel/preset-react',
   ],
-  plugins: [],
+  plugins: [
+    '@babel/plugin-transform-class-properties',
+  ],
 };
 
 if (NODE_ENV === 'development') {
   config.plugins = config.plugins.concat([
-    'transform-class-properties',
-    [
-      'react-transform',
-      {
-        transforms: [
-          {
-            transform: 'react-transform-hmr',
-            imports: ['react'],
-            locals: ['module'],
-          },
-        ],
-      },
-    ],
-    'add-react-displayname',
+    // Note: react-transform-hmr is deprecated, consider using React Fast Refresh
   ]);
 }
 

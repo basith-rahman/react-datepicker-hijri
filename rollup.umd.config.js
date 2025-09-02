@@ -1,31 +1,30 @@
 import config from "./rollup.config.js";
-import uglify from "rollup-plugin-uglify";
+import terser from "@rollup/plugin-terser";
 
 const env = process.env.NODE_ENV;
 
 const umdConfig = Object.assign({}, config, {
   output: Object.assign({}, config.output, {
     format: "umd",
-    name: "DatePicker"
-  }),
-  globals: {
-    react: "React",
-    "prop-types": "PropTypes",
-    "react-onclickoutside": "onClickOutside",
-    "react-popper": "ReactPopper",
-    moment: "moment",
-    classnames: "classNames"
-  }
+    name: "DatePicker",
+    globals: {
+      react: "React",
+      "prop-types": "PropTypes",
+      "react-onclickoutside": "onClickOutside",
+      "react-popper": "ReactPopper",
+      moment: "moment",
+      classnames: "classNames"
+    }
+  })
 });
 
 if (env === "production") {
   config.plugins.push(
-    uglify({
+    terser({
       compress: {
         pure_getters: true,
         unsafe: true,
-        unsafe_comps: true,
-        warnings: false
+        unsafe_comps: true
       }
     })
   );

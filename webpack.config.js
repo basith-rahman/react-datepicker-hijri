@@ -1,23 +1,25 @@
 var webpack = require("webpack");
+var path = require("path");
 
 module.exports = {
+  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   entry: "./src/index",
   output: {
     libraryTarget: "umd",
     library: "DatePicker",
-    path: "./dist/"
+    path: path.resolve("./dist/")
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.jsx?$/,
-        loader: "babel",
+        use: "babel-loader",
         exclude: /node_modules/
       }
     ]
   },
   resolve: {
-    extensions: ["", ".js", ".jsx"]
+    extensions: [".js", ".jsx"]
   },
   externals: [
     {
@@ -53,9 +55,7 @@ module.exports = {
       }
     }
   ],
-  node: { Buffer: false },
   plugins: [
-    new webpack.optimize.DedupePlugin(),
     new webpack.DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV)
     })
