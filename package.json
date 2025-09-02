@@ -37,6 +37,7 @@
     "@babel/plugin-transform-class-properties": "^7.22.0",
     "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.22.0",
+    "@babel/preset-flow": "^7.27.1",
     "@babel/preset-react": "^7.22.0",
     "@rollup/plugin-babel": "^6.0.0",
     "@rollup/plugin-commonjs": "^25.0.0",
@@ -72,8 +73,8 @@
     "lodash": "^4.17.4",
     "mini-css-extract-plugin": "^2.7.0",
     "mocha": "^10.2.0",
-    "moment": "^2.20.1",
-    "moment-hijri": "^2.0.1",
+    "moment": "^2.30.0",
+    "moment-hijri": "^2.1.2",
     "npm-run-all": "^4.1.2",
     "prettier": "^2.8.0",
     "react": "^16.1.0",
@@ -97,15 +98,14 @@
   "peerDependencies": {
     "moment": "^2.20.0",
     "moment-hijri": "^2.0.0",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "react": "^16.0.0 || ^17.0.0 || ^18.0.0",
+    "react-dom": "^16.0.0 || ^17.0.0 || ^18.0.0"
   },
   "dependencies": {
-    "@babel/preset-flow": "^7.27.1",
-    "classnames": "^2.2.5",
-    "prop-types": "^15.6.0",
-    "react-onclickoutside": "^6.7.1",
-    "react-popper": "^0.9.1"
+    "classnames": "^2.5.0",
+    "prop-types": "^15.8.0",
+    "react-onclickoutside": "^6.13.0",
+    "react-popper": "^2.3.0"
   },
   "scripts": {
     "eslint": "eslint {src,test,docs-site/src}/**/*.{js,jsx} *.js",
