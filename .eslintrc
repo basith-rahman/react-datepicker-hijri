@@ -8,15 +8,16 @@
     "react"
   ],
 
+  "parser": "@babel/eslint-parser",
+
   "parserOptions": {
-    "ecmaVersion": 6,
+    "ecmaVersion": 2020,
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
-    }
+    },
+    "requireConfigFile": false
   },
-
-  "parser": "babel-eslint",
 
   "rules": {
     "react/display-name": 2,

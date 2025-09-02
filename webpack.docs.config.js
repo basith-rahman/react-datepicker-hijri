@@ -1,16 +1,17 @@
 var path = require("path");
 var webpack = require("webpack");
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-  entry: ["babel-polyfill", "./docs-site/src/boot"],
+  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
+  entry: ["./docs-site/src/boot"],
   output: {
     path: path.resolve("./docs-site/"),
     filename: "bundle.js",
     publicPath: "/"
   },
   resolve: {
-    extensions: ["", ".js", ".jsx"],
+    extensions: [".js", ".jsx"],
 
     // Needed to direct the docs to the local version of the datepicker, this is not needed for
     // normal setup.
@@ -22,25 +23,33 @@ module.exports = {
     }
   },
   module: {
-    loaders: [
-      { test: /\.js/, loader: "babel", exclude: /node_modules/ },
-      {
-        test: /\.scss/,
-        loader: ExtractTextPlugin.extract(
-          "style-loader",
-          "css-loader!sass-loader"
-        )
+    rules: [
+      { 
+        test: /\.jsx?$/, 
+        use: "babel-loader", 
+        exclude: /node_modules/ 
       },
       {
-        test: /\.css/,
-        loader: ExtractTextPlugin.extract("style-loader", "css-loader")
+        test: /\.scss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "sass-loader"
+        ]
+      },
+      {
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader"
+        ]
       }
     ]
   },
-  node: { Buffer: false },
   plugins: [
-    new webpack.optimize.DedupePlugin(),
-    new ExtractTextPlugin("style.css", { allChunks: true }),
+    new MiniCssExtractPlugin({
+      filename: "style.css"
+    }),
     new webpack.DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV)
     })
